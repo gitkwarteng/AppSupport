@@ -9,6 +9,27 @@ import SwiftUI
 import ImagePlayground
 
 
+public enum NavigationTransitionStyle {
+    case zoom(sourceID: Hashable, in: Namespace.ID)
+    case automatic
+    
+}
+
+
+@available(iOS 18, *)
+public extension NavigationTransitionStyle {
+    
+    var asTransition: NavigationTransition {
+        switch self {
+        case .zoom(let sourceID, let namespace):
+            return .zoom(sourceID: sourceID, in: namespace)
+        case .automatic:
+            return .automatic
+        }
+    }
+    
+}
+
 @MainActor
 @available(iOS 14, macOS 11, *)
 public extension Available where Content: View {
@@ -21,16 +42,25 @@ public extension Available where Content: View {
         }
     }
     
-    @ViewBuilder func zoom(
-        sourceID: some Hashable,
+    @ViewBuilder func navigationTransition(
+        sourceId: some Hashable,
         in namespace: Namespace.ID
     ) -> some View {
         if #available(iOS 18.0, macOS 12, *) {
             content
-            #if os(iOS)
-                .navigationTransition(.zoom(sourceID: sourceID, in: namespace))
-            #endif
-                .interactiveDismissDisabled()
+                .navigationTransition(.zoom(sourceID: sourceId, in: namespace))
+        } else {
+            content
+        }
+    }
+    
+    @ViewBuilder func sheetNavigationTransition(
+        sourceId: some Hashable,
+        in namespace: Namespace.ID
+    ) -> some View {
+        if #available(iOS 26.0, *) {
+            content
+                .navigationTransition(.zoom(sourceID: sourceId, in: namespace))
         } else {
             content
         }
