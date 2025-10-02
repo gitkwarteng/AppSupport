@@ -18,7 +18,7 @@ struct ContentView: View {
 |-------------|-----------------------------------------|--------------------------------------------------|
 | iOS 17.0    | `contentTransition(_:)`                 | Applies a basic or numeric content transition    |
 | iOS 17.0    | `presentationCornerRadius(_:)`          | Applies corner radius to sheet detents           |
-| iOS 17.0    | `presentationContentInteraction(_:)`    | Applies conten interaction mode to sheets        |
+| iOS 17.0    | `presentationContentInteraction(_:)`    | Applies content interaction mode to sheets       |
 | iOS 18.0    | `matchedTransitionSource(id:in:)`       | Marks a view as a matched transition source      |
 | iOS 18.0    | `presentationSizeForm()`                | Applies `.presentationSizing(.form)`             |
 | iOS 18.0    | `navigationTransition(sourceId:in:)`    | Applies a zoom navigation transition             |
