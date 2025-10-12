@@ -159,24 +159,24 @@ public extension Available where Content: View {
     }
     
     @ViewBuilder func glassEffect(
-        _ availableGlass: AvailableGlass = .regular,
+        _ glass: AvailableGlass = .regular,
         in shape: some Shape = Capsule()
     ) -> some View {
         if #available(iOS 26.0, macOS 26, *) {
-            content.glassEffect(availableGlass.glass, in: shape)
+            content.glassEffect(glass.glass, in: shape)
         } else {
             content.clipShape(shape)
         }
     }
     
     @ViewBuilder func glassEffect(
-        _ availableGlass: AvailableGlass = .regular,
+        _ glass: AvailableGlass = .regular,
         in shape: some Shape = Capsule(),
-        fallbackBackground: some ShapeStyle) -> some View {
+        fallback: some ShapeStyle) -> some View {
             if #available(iOS 26.0, macOS 26, *) {
-                content.glassEffect(availableGlass.glass, in: shape)
+                content.glassEffect(glass.glass, in: shape)
             } else {
-                content.background(fallbackBackground, in: shape)
+                content.background(fallback, in: shape)
             }
         }
     
