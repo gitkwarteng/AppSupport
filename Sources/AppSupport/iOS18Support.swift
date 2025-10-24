@@ -15,7 +15,6 @@ public enum NavigationTransitionStyle {
     
 }
 
-
 @available(iOS 18, *)
 public extension NavigationTransitionStyle {
     
@@ -29,6 +28,32 @@ public extension NavigationTransitionStyle {
     }
     
 }
+
+
+
+public enum AvailableTabViewStyle {
+    case tabBarOnly
+    case sidebarAdaptable
+    case automatic
+    
+}
+
+@available(iOS 18, *)
+public extension AvailableTabViewStyle {
+    
+    var asTabViewStyle: TabViewStyle {
+        switch self {
+        case .tabBarOnly:
+            return .tabBarOnly
+        case .sidebarAdaptable:
+            return .sidebarAdaptable
+        case .automatic:
+            return .automatic
+        }
+    }
+    
+}
+
 
 @MainActor
 @available(iOS 14, macOS 11, *)
@@ -90,6 +115,16 @@ public extension Available where Content: View {
             } else {
                 content
             }
+        } else {
+            content
+        }
+    }
+    @ViewBuilder func tabViewStyle(
+        _ style: AvailableTabViewStyle
+    ) -> some View {
+        if #available(iOS 18.0, *) {
+            content
+                .tabViewStyle(style.asTabViewStyle)
         } else {
             content
         }
