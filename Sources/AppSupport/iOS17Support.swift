@@ -41,6 +41,26 @@ public enum AvailableContentTransition {
     case numericText
 }
 
+
+/// Available for ContentTransition (iOS 17)
+public enum AvailableSearchPresentationToolbarBehavior {
+    case automatic
+    case avoidHidingContent
+}
+
+
+@available(iOS 17.1, *)
+extension AvailableSearchPresentationToolbarBehavior {
+    var behavior: SearchPresentationToolbarBehavior {
+        switch self {
+        case .automatic:
+            return .automatic
+        case .avoidHidingContent:
+            return .avoidHidingContent
+        }
+    }
+}
+
 @MainActor
 @available(iOS 14, macOS 13, *)
 public extension Available where Content: View {
@@ -85,3 +105,16 @@ public extension Available where Content: View {
     }
 }
 
+
+@MainActor
+@available(iOS 14, macOS 13, *)
+public extension Available where Content: View {
+    @ViewBuilder
+    func searchPresentationToolbarBehavior(_ behavior: AvailableSearchPresentationToolbarBehavior) -> some View {
+        if #available(iOS 17.1, *) {
+            content.searchPresentationToolbarBehavior(behavior.behavior)
+        } else {
+            content
+        }
+    }
+}
