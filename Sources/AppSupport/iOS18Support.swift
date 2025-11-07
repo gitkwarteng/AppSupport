@@ -119,6 +119,7 @@ public extension Available where Content: View {
             content
         }
     }
+    
     @ViewBuilder func tabViewStyle(
         _ style: AvailableTabViewStyle
     ) -> some View {
@@ -129,5 +130,26 @@ public extension Available where Content: View {
             content
         }
     }
+    
+    
+}
+
+@MainActor
+@available(iOS 16, macOS 11, *)
+public extension Available where Content: View {
+    
+    @ViewBuilder func toolbarVisibility(
+        _ visibility: Visibility,
+        for bars: ToolbarPlacement
+    ) -> some View {
+        if #available(iOS 18.0, *) {
+            content
+                .toolbarVisibility(visibility, for: bars)
+        } else {
+            content
+                .toolbar(visibility, for: bars)
+        }
+    }
+    
 }
 

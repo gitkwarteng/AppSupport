@@ -14,4 +14,13 @@ public struct Available<Content> {
 
 public extension View {
     var apply: Available<Self> { Available(self) }
+    
+        
+    @ViewBuilder
+    func apply<Transformed:View>(
+        @ViewBuilder _ transform: (Self) -> Transformed
+    ) -> some View {
+        transform(self)
+    }
+
 }
